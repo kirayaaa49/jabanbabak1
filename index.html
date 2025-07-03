@@ -10,12 +10,10 @@
       margin: 40px;
       background-color: #f0f0f0;
     }
-
     h2 {
       text-align: center;
       color: #333;
     }
-
     form {
       max-width: 400px;
       margin: 0 auto;
@@ -23,15 +21,13 @@
       background-color: #fff;
       border: 1px solid #ccc;
       border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
     }
-
     label {
       font-weight: bold;
       display: block;
       margin-top: 12px;
     }
-
     input[type="text"] {
       width: 100%;
       padding: 10px;
@@ -41,11 +37,6 @@
       border-radius: 5px;
       box-sizing: border-box;
     }
-
-    input::placeholder {
-      color: #aaa;
-    }
-
     button {
       width: 100%;
       padding: 12px;
@@ -56,7 +47,6 @@
       border-radius: 5px;
       cursor: pointer;
     }
-
     button:hover {
       background-color: #45a049;
     }
@@ -66,16 +56,33 @@
 
   <h2>Form Jawaban</h2>
 
-  <!-- Form langsung submit ke URL tujuan, method GET -->
-  <form id="myForm" action="https://forms.gle/EDGFxt15fRcwZcJp9" method="GET">
-    <label for="name">Nama:</label>
-    <input type="text" id="name" name="name" required autocomplete="off" placeholder="Masukkan nama Anda" />
-
+  <form id="answerForm">
     <label for="answer">Jawaban:</label>
     <input type="text" id="answer" name="answer" required autocomplete="off" placeholder="Masukkan jawaban" />
-
     <button type="submit">Kirim</button>
   </form>
+
+  <script>
+    const form = document.getElementById('answerForm');
+    const correctAnswer = "123456789"; // Ganti dengan jawaban yang benar
+    const nextUrl = "https://forms.gle/tYY1BYYK3BEXkwGfA"; // Ganti dengan URL tujuan
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const answerInput = document.getElementById('answer').value.trim();
+
+      if(answerInput.toLowerCase() === correctAnswer.toLowerCase()) {
+        if(confirm("Jawaban kamu benar! Klik OK untuk melanjutkan.")) {
+          window.location.href = nextUrl;
+        }
+      } else {
+        alert("Jawaban kamu salah, silakan coba lagi.");
+        form.reset();
+        document.getElementById('answer').focus();
+      }
+    });
+  </script>
 
 </body>
 </html>
