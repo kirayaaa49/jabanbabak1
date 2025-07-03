@@ -64,7 +64,7 @@
 
   <script>
     const form = document.getElementById('answerForm');
-    const correctAnswer = 123456789; 
+    const correctAnswer = 4; 
     const nextUrl = "https://forms.gle/gXxKjvowx7F3jqbw6"; 
 
     form.addEventListener('submit', function(event) {
@@ -80,11 +80,11 @@
       const answerNumber = Number(answerInput);
 
       if (answerNumber === correctAnswer) {
-        if (confirm("Selamat, jawaban kamu benar! Klik OK untuk melanjutkan.")) {
+        if (confirm("Selamat🥳 jawaban kamu benar! Klik OK untuk melanjutkan😉")) {
           window.location.href = nextUrl;
         }
       } else {
-        alert("Jawaban kamu salah, silakan coba lagi.");
+        alert("Jawaban kamu kurang tepat😕 silakan coba lagi!!");
         form.reset();
         document.getElementById('answer').focus();
       }
