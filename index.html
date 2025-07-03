@@ -54,20 +54,22 @@
     // Inisialisasi EmailJS
     emailjs.init("Wj8wh95z1kM-0A4Gm"); // ✅ Public Key kamu
 
-    const correctAnswer = 12345; // ✅ Jawaban benar
+    const correctAnswer = 12345; // ✅ Jawaban angka yang benar
 
     document.getElementById("answerForm").addEventListener("submit", function(event) {
       event.preventDefault();
 
       const name = document.getElementById("name").value.trim();
-      const answer = document.getElementById("answer").value.trim();
+      const answerStr = document.getElementById("answer").value.trim();
 
-      if (name === "" || answer === "") {
-        alert("Nama dan jawaban wajib diisi.");
+      // Validasi angka
+      const answer = parseInt(answerStr, 10);
+      if (name === "" || isNaN(answer)) {
+        alert("Nama dan jawaban angka wajib diisi.");
         return;
       }
 
-      if (Number(answer) !== correctAnswer) {
+      if (answer !== correctAnswer) {
         alert("Jawaban salah, silakan coba lagi.");
         document.getElementById("answer").value = "";
         document.getElementById("answer").focus();
@@ -77,7 +79,7 @@
       // Jawaban benar – kirim email
       emailjs.send("service_ray1914", "template_n7fmhya", {
         name: name,
-        message: "Jawaban yang benar: " + answer
+        answer: answer // ✅ kirim jawaban sebagai 'answer'
       })
       .then(function(response) {
         alert("✅ Jawaban benar! Data kamu berhasil dikirim.");
