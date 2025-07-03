@@ -33,7 +33,6 @@
       background-color: #4CAF50;
       color: white;
       border: none;
-      font-weight: bold;
     }
     button:hover {
       background-color: #45a049;
@@ -52,41 +51,40 @@
 
   <script>
     // Inisialisasi EmailJS
-    emailjs.init("Wj8wh95z1kM-0A4Gm"); // ✅ Public Key kamu
+    emailjs.init("Wj8wh95z1kM-0A4Gm"); // Ganti dengan PUBLIC KEY kamu
 
-    const correctAnswer = 12345; // ✅ Jawaban angka yang benar
+    const correctAnswer = 12345; // Ganti dengan jawaban yang benar
 
     document.getElementById("answerForm").addEventListener("submit", function(event) {
       event.preventDefault();
 
       const name = document.getElementById("name").value.trim();
-      const answerStr = document.getElementById("answer").value.trim();
+      const answer = document.getElementById("answer").value.trim();
 
-      // Validasi angka
-      const answer = parseInt(answerStr, 10);
-      if (name === "" || isNaN(answer)) {
-        alert("Nama dan jawaban angka wajib diisi.");
+      if (name === "" || answer === "") {
+        alert("Nama dan jawaban wajib diisi.");
         return;
       }
 
-      if (answer !== correctAnswer) {
+      if (Number(answer) !== correctAnswer) {
         alert("Jawaban salah, silakan coba lagi.");
         document.getElementById("answer").value = "";
         document.getElementById("answer").focus();
         return;
       }
 
-      // Jawaban benar – kirim email
+      // Kirim email via EmailJS
       emailjs.send("service_ray1914", "template_n7fmhya", {
         name: name,
-        answer: answer // ✅ kirim jawaban sebagai 'answer'
+        answer: answer
       })
       .then(function(response) {
-        alert("✅ Jawaban benar! Data kamu berhasil dikirim.");
+        console.log("✅ Email terkirim:", response);
+        alert("Jawaban benar! Data kamu berhasil dikirim.");
         document.getElementById("answerForm").reset();
       }, function(error) {
-        alert("❌ Gagal mengirim email. Coba lagi nanti.");
-        console.error("EmailJS error:", error);
+        console.error("❌ Gagal kirim email:", error);
+        alert("Gagal mengirim email. Cek koneksi atau konfigurasi EmailJS kamu.");
       });
     });
   </script>
