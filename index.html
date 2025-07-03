@@ -1,51 +1,38 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Form Jawaban Angka</title>
+  <meta charset="UTF-8">
+  <title>Form Jawaban Babak 1</title>
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
   <style>
     body {
       font-family: Arial, sans-serif;
-      margin: 40px;
+      max-width: 400px;
+      margin: 60px auto;
       background-color: #f0f0f0;
+      padding: 20px;
     }
     h2 {
       text-align: center;
-      color: #333;
     }
     form {
-      max-width: 400px;
-      margin: 0 auto;
-      padding: 20px;
       background-color: #fff;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
-    label {
-      font-weight: bold;
-      display: block;
-      margin-top: 12px;
-    }
-    input[type="number"] {
+    input, button {
       width: 100%;
       padding: 10px;
-      margin-top: 6px;
-      margin-bottom: 16px;
+      margin-top: 10px;
+      box-sizing: border-box;
       border: 1px solid #ccc;
       border-radius: 5px;
-      box-sizing: border-box;
     }
     button {
-      width: 100%;
-      padding: 12px;
       background-color: #4CAF50;
       color: white;
-      font-size: 16px;
       border: none;
-      border-radius: 5px;
-      cursor: pointer;
     }
     button:hover {
       background-color: #45a049;
@@ -54,40 +41,41 @@
 </head>
 <body>
 
-  <h2>Form Jawaban</h2>
+  <h2>Jawaban Babak 1</h2>
 
   <form id="answerForm">
-    <label for="answer">Jawaban kamu:</label>
-    <input type="number" id="answer" name="answer" required autocomplete="off" placeholder="Masukkan angka" />
-    <button type="submit">Kirim</button>
+    <input type="text" id="name" name="name" placeholder="Nama Lengkap" required />
+    <textarea id="message" name="message" rows="4" placeholder="Masukkan jawaban kamu..." required></textarea>
+    <button type="submit">Kirim Jawaban</button>
   </form>
 
   <script>
-    const form = document.getElementById('answerForm');
-    const correctAnswer = 123456789; 
-    const nextUrl = "https://forms.gle/gXxKjvowx7F3jqbw6"; 
+    // Inisialisasi EmailJS
+    emailjs.init("YWj8wh95z1kM-0A4Gm"); // 🔁 Ganti dengan Public Key milikmu
 
-    form.addEventListener('submit', function(event) {
+    // Event saat form dikirim
+    document.getElementById("answerForm").addEventListener("submit", function(event) {
       event.preventDefault();
 
-      const answerInput = document.getElementById('answer').value.trim();
+      const name = document.getElementById("name").value.trim();
+      const message = document.getElementById("message").value.trim();
 
-      if (answerInput === '' || isNaN(answerInput)) {
-        alert("Silakan masukkan angka yang valid.");
+      if (name === "" || message === "") {
+        alert("Semua kolom wajib diisi.");
         return;
       }
 
-      const answerNumber = Number(answerInput);
-
-      if (answerNumber === correctAnswer) {
-        if (confirm("Selamat, jawaban kamu benar! Klik OK untuk melanjutkan.")) {
-          window.location.href = nextUrl;
-        }
-      } else {
-        alert("Jawaban kamu salah, silakan coba lagi.");
-        form.reset();
-        document.getElementById('answer').focus();
-      }
+      emailjs.send("Yservice_ray1914", "Ytemplate_n7fmhya", {
+        name: name,
+        message: message
+      })
+      .then(function(response) {
+        alert("Jawaban berhasil dikirim!");
+        document.getElementById("answerForm").reset();
+      }, function(error) {
+        alert("Gagal mengirim jawaban. Coba lagi.");
+        console.error("EmailJS Error:", error);
+      });
     });
   </script>
 
