@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Form Jawaban</title>
+  <title>Form Jawaban Angka</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -28,7 +28,7 @@
       display: block;
       margin-top: 12px;
     }
-    input[type="text"] {
+    input[type="number"] {
       width: 100%;
       padding: 10px;
       margin-top: 6px;
@@ -54,26 +54,33 @@
 </head>
 <body>
 
-  <h2>Form Jawaban</h2>
+  <h2>Form Jawaban Angka</h2>
 
   <form id="answerForm">
-    <label for="answer">Jawaban:</label>
-    <input type="text" id="answer" name="answer" required autocomplete="off" placeholder="Masukkan jawaban" />
+    <label for="answer">Jawaban (angka):</label>
+    <input type="number" id="answer" name="answer" required autocomplete="off" placeholder="Masukkan angka" />
     <button type="submit">Kirim</button>
   </form>
 
   <script>
     const form = document.getElementById('answerForm');
-    const correctAnswer = "123456789"; // Ganti dengan jawaban yang benar
-    const nextUrl = "https://forms.gle/tYY1BYYK3BEXkwGfA"; // Ganti dengan URL tujuan
+    const correctAnswer = 123456789; 
+    const nextUrl = "https://forms.gle/gXxKjvowx7F3jqbw6"; 
 
     form.addEventListener('submit', function(event) {
       event.preventDefault();
 
       const answerInput = document.getElementById('answer').value.trim();
 
-      if(answerInput.toLowerCase() === correctAnswer.toLowerCase()) {
-        if(confirm("Jawaban kamu benar! Klik OK untuk melanjutkan.")) {
+      if (answerInput === '' || isNaN(answerInput)) {
+        alert("Silakan masukkan angka yang valid.");
+        return;
+      }
+
+      const answerNumber = Number(answerInput);
+
+      if (answerNumber === correctAnswer) {
+        if (confirm("Selamat, jawaban kamu benar! Klik OK untuk melanjutkan.")) {
           window.location.href = nextUrl;
         }
       } else {
