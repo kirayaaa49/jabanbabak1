@@ -63,4 +63,31 @@
       const answer = document.getElementById("answer").value.trim();
 
       if (name === "" || answer === "") {
-        alert("Nama dan jawaban wa
+        alert("Nama dan jawaban wajib diisi.");
+        return;
+      }
+
+      if (Number(answer) !== correctAnswer) {
+        alert("Jawaban salah, silakan coba lagi.");
+        document.getElementById("answer").value = "";
+        document.getElementById("answer").focus();
+        return;
+      }
+
+      // Jawaban benar – kirim email
+      emailjs.send("service_ray1914", "template_n7fmhya", {
+        name: name,
+        message: "Jawaban yang benar: " + answer
+      })
+      .then(function(response) {
+        alert("✅ Jawaban benar! Data kamu berhasil dikirim.");
+        document.getElementById("answerForm").reset();
+      }, function(error) {
+        alert("❌ Gagal mengirim email. Coba lagi nanti.");
+        console.error("EmailJS error:", error);
+      });
+    });
+  </script>
+
+</body>
+</html>
