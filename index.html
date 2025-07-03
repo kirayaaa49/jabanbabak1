@@ -21,7 +21,7 @@
       border-radius: 8px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
-    input, textarea, button {
+    input, button {
       width: 100%;
       padding: 10px;
       margin-top: 10px;
@@ -33,6 +33,7 @@
       background-color: #4CAF50;
       color: white;
       border: none;
+      font-weight: bold;
     }
     button:hover {
       background-color: #45a049;
@@ -50,9 +51,10 @@
   </form>
 
   <script>
-    emailjs.init("Wj8wh95z1kM-0A4Gm"); // Ganti dengan Public Key kamu
+    // Inisialisasi EmailJS
+    emailjs.init("Wj8wh95z1kM-0A4Gm"); // ✅ Public Key kamu
 
-    const correctAnswer = 12345; // Ganti dengan jawaban benar
+    const correctAnswer = 12345; // ✅ Jawaban benar
 
     document.getElementById("answerForm").addEventListener("submit", function(event) {
       event.preventDefault();
@@ -61,31 +63,4 @@
       const answer = document.getElementById("answer").value.trim();
 
       if (name === "" || answer === "") {
-        alert("Nama dan jawaban wajib diisi.");
-        return;
-      }
-
-      if (Number(answer) !== correctAnswer) {
-        alert("Jawaban salah, silakan coba lagi.");
-        document.getElementById("answer").value = "";
-        document.getElementById("answer").focus();
-        return;
-      }
-
-      // Jawaban benar - kirim email
-      emailjs.send("Yservice_ray1914", "template_n7fmhya", {
-        name: name,
-        message: "Jawaban yang benar: " + answer
-      })
-      .then(function(response) {
-        alert("Jawaban benar! Data kamu berhasil dikirim.");
-        document.getElementById("answerForm").reset();
-      }, function(error) {
-        alert("Gagal mengirim email. Coba lagi nanti.");
-        console.error("EmailJS error:", error);
-      });
-    });
-  </script>
-
-</body>
-</html>
+        alert("Nama dan jawaban wa
